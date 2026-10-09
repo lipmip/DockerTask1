@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Регистрация')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+<main class="wrap" style="max-width: 420px">
+    <h1>Регистрация</h1>
+    <div class="alert alert-err" th:if="${error}" th:text="${error}">Ошибка</div>
+    <form class="card" th:action="@{/signup}" th:object="${user}" method="post">
+        <label for="email">Email</label>
+        <input type="email" id="email" th:field="*{email}" required>
+        <label for="firstName">Имя</label>
+        <input type="text" id="firstName" th:field="*{firstName}" required>
+        <label for="lastName">Фамилия</label>
+        <input type="text" id="lastName" th:field="*{lastName}" required>
+        <label for="password">Пароль</label>
+        <input type="password" id="password" th:field="*{password}" required>
+        <p><button type="submit">Зарегистрироваться</button></p>
+        <p class="muted">Уже есть аккаунт? <a th:href="@{/login}">Войти</a></p>
+    </form>
+</main>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Панель')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+<main class="wrap">
+    <div class="row" style="justify-content: space-between; margin-bottom: 16px">
+        <h1 style="margin: 0">Управление статьями</h1>
+        <a class="btn" th:href="@{/article/add}">+ Новая статья</a>
+    </div>
+
+    <p th:if="${articles.isEmpty()}" class="muted">Статей пока нет.</p>
+
+    <table th:unless="${articles.isEmpty()}">
+        <thead>
+        <tr><th>Заголовок</th><th>Дата</th><th>♥</th><th></th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="a : ${articles}">
+            <td><a th:href="@{/article/{id}(id=${a.id})}" th:text="${a.title}">Заголовок</a></td>
+            <td th:text="${a.publishedDate != null} ? ${#temporals.format(a.publishedDate, 'dd.MM.yyyy')} : '—'">01.01.2026</td>
+            <td th:text="${a.likes != null} ? ${a.likes.size()} : 0">0</td>
+            <td style="text-align: right">
+                <a class="btn btn-light" th:href="@{/article/update(id=${a.id})}">Изменить</a>
+                <form th:action="@{/article/delete}" method="post" onsubmit="return confirm('Удалить статью?')">
+                    <input type="hidden" name="id" th:value="${a.id}">
+                    <button type="submit" class="btn-danger">Удалить</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <nav class="pager" th:if="${totalPages > 1}">
+        <th:block th:each="n : ${pageNumbers}">
+            <span th:if="${n == currentPage}" class="active" th:text="${n}">1</span>
+            <a th:unless="${n == currentPage}" th:href="@{/dashboard(page=${n})}" th:text="${n}">2</a>
+        </th:block>
+    </nav>
+</main>
+</body>
+</html>

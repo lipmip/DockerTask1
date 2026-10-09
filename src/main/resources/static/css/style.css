@@ -1,0 +1,35 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, sans-serif; background: #f6f7f9; color: #1d2330; line-height: 1.5; }
+a { color: #2457d6; text-decoration: none; }
+a:hover { text-decoration: underline; }
+header { background: #1d2330; color: #fff; }
+header .wrap { display: flex; align-items: center; gap: 16px; padding: 12px 16px; }
+header a { color: #fff; }
+header .brand { font-weight: 700; font-size: 18px; margin-right: auto; }
+header form { margin: 0; }
+.wrap { max-width: 860px; margin: 0 auto; padding: 24px 16px; }
+.card { background: #fff; border: 1px solid #e2e5eb; border-radius: 8px; padding: 16px 20px; margin-bottom: 16px; }
+.card h2 { margin: 0 0 4px; font-size: 20px; }
+.muted { color: #6b7280; font-size: 14px; }
+.content { white-space: pre-wrap; }
+label { display: block; font-weight: 600; margin: 12px 0 4px; }
+input[type=text], input[type=email], input[type=password], input[type=date], textarea {
+    width: 100%; padding: 8px 10px; border: 1px solid #cdd2db; border-radius: 6px; font: inherit; }
+textarea { min-height: 200px; }
+button, .btn { display: inline-block; padding: 8px 14px; border: 0; border-radius: 6px; background: #2457d6; color: #fff;
+    font: inherit; cursor: pointer; }
+.btn:hover { text-decoration: none; opacity: .9; }
+.btn-light { background: #e8ecf4; color: #1d2330; }
+.btn-danger { background: #d63a24; }
+.link-btn { background: none; padding: 0; color: #fff; }
+.alert { padding: 10px 14px; border-radius: 6px; margin-bottom: 16px; }
+.alert-ok { background: #e3f6e8; color: #1d6b34; }
+.alert-err { background: #fde8e6; color: #9b2316; }
+.error { color: #d63a24; font-size: 14px; }
+.pager { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 16px; }
+.pager a, .pager span { padding: 4px 10px; border-radius: 6px; background: #fff; border: 1px solid #e2e5eb; }
+.pager .active { background: #2457d6; color: #fff; border-color: #2457d6; }
+table { width: 100%; border-collapse: collapse; background: #fff; }
+th, td { text-align: left; padding: 10px; border-bottom: 1px solid #e2e5eb; vertical-align: middle; }
+td form { display: inline; }
+.row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }

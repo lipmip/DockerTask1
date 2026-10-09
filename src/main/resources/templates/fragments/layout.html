@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title} + ' · Blog'">Blog</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header th:fragment="header">
+    <div class="wrap">
+        <a class="brand" th:href="@{/home}">Blog</a>
+        <a th:if="${isAdmin}" th:href="@{/dashboard}">Панель</a>
+        <th:block th:if="${currentUser == null}">
+            <a th:href="@{/login}">Войти</a>
+            <a th:href="@{/signup}">Регистрация</a>
+        </th:block>
+        <th:block th:if="${currentUser != null}">
+            <span th:text="${currentUser}">user@mail</span>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="link-btn">Выйти</button>
+            </form>
+        </th:block>
+    </div>
+</header>
+</body>
+</html>

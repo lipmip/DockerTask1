@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Статьи')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+<main class="wrap">
+    <div class="row" style="justify-content: space-between; margin-bottom: 16px">
+        <h1 style="margin: 0">Статьи</h1>
+        <div class="row">
+            <span class="muted">Сортировка:</span>
+            <a th:href="@{/home(sortBy='publishedDate')}" th:class="${sortBy != 'likes'} ? 'btn' : 'btn btn-light'">Новые</a>
+            <a th:href="@{/home(sortBy='likes')}" th:class="${sortBy == 'likes'} ? 'btn' : 'btn btn-light'">Популярные</a>
+        </div>
+    </div>
+
+    <p th:if="${articlePage.isEmpty()}" class="muted">Статей пока нет.</p>
+
+    <article class="card" th:each="a : ${articlePage.content}">
+        <h2><a th:href="@{/article/{id}(id=${a.id})}" th:text="${a.title}">Заголовок</a></h2>
+        <div class="muted">
+            <span th:text="${a.publishedDate != null} ? ${#temporals.format(a.publishedDate, 'dd.MM.yyyy')} : 'без даты'">01.01.2026</span>
+            · ♥ <span th:text="${a.likes != null} ? ${a.likes.size()} : 0">0</span>
+            · комментариев: <span th:text="${a.comments != null} ? ${a.comments.size()} : 0">0</span>
+        </div>
+    </article>
+
+    <nav class="pager" th:if="${articlePage.totalPages > 1}">
+        <th:block th:each="i : ${#numbers.sequence(0, articlePage.totalPages - 1)}">
+            <span th:if="${i == currentPage}" class="active" th:text="${i + 1}">1</span>
+            <a th:unless="${i == currentPage}" th:href="@{/home(sortBy=${sortBy}, page=${i}, size=${pageSize})}" th:text="${i + 1}">2</a>
+        </th:block>
+    </nav>
+</main>
+</body>
+</html>

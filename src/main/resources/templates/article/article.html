@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${article.title})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+<main class="wrap">
+    <article class="card">
+        <h1 th:text="${article.title}" style="margin-top: 0">Заголовок</h1>
+        <div class="muted" th:text="${article.publishedDate != null} ? ${#temporals.format(article.publishedDate, 'dd.MM.yyyy')} : ''">01.01.2026</div>
+        <div class="content" th:text="${article.content}">Текст статьи</div>
+
+        <div class="row" style="margin-top: 16px">
+            <span>♥ <span th:text="${article.likes != null} ? ${article.likes.size()} : 0">0</span></span>
+            <form th:if="${logged}" th:action="@{/article/like}" method="post">
+                <input type="hidden" name="id" th:value="${article.id}">
+                <button type="submit" th:class="${liked} ? 'btn-light' : ''" th:text="${liked} ? 'Убрать лайк' : 'Нравится'">Нравится</button>
+            </form>
+            <span th:unless="${logged}" class="muted"><a th:href="@{/login}">Войдите</a>, чтобы поставить лайк или оставить комментарий.</span>
+        </div>
+    </article>
+
+    <h2>Комментарии</h2>
+    <p th:if="${article.comments == null or article.comments.isEmpty()}" class="muted">Комментариев пока нет.</p>
+    <div class="card" th:each="c : ${article.comments}">
+        <div class="muted">
+            <span th:text="${c.user != null} ? ${c.user.firstName + ' ' + c.user.lastName} : 'Аноним'">Автор</span>
+            <span th:if="${c.createdAt != null}" th:text="'· ' + ${#dates.format(c.createdAt, 'dd.MM.yyyy HH:mm')}"></span>
+        </div>
+        <div class="content" th:text="${c.text}">Текст</div>
+    </div>
+
+    <form th:if="${logged}" class="card" th:action="@{/article/comment}" method="post">
+        <input type="hidden" name="id" th:value="${article.id}">
+        <label for="text">Ваш комментарий</label>
+        <textarea id="text" name="text" required style="min-height: 100px"></textarea>
+        <p><button type="submit">Отправить</button></p>
+    </form>
+</main>
+</body>
+</html>

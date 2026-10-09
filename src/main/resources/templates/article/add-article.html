@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Новая статья')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+<main class="wrap">
+    <h1>Новая статья</h1>
+    <form class="card" th:action="@{/article/add}" th:object="${article}" method="post">
+        <label for="title">Заголовок</label>
+        <input type="text" id="title" th:field="*{title}" maxlength="50" required>
+        <div class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+
+        <label for="publishedDate">Дата публикации</label>
+        <input type="date" id="publishedDate" th:field="*{publishedDate}">
+
+        <label for="content">Текст</label>
+        <textarea id="content" th:field="*{content}" required></textarea>
+        <div class="error" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
+
+        <p class="row">
+            <button type="submit">Опубликовать</button>
+            <a class="btn btn-light" th:href="@{/dashboard}">Отмена</a>
+        </p>
+    </form>
+</main>
+</body>
+</html>
