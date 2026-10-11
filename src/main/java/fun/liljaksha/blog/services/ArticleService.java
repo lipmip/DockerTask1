@@ -2,6 +2,7 @@ package fun.liljaksha.blog.services;
 
 import fun.liljaksha.blog.model.Article;
 import fun.liljaksha.blog.repository.ArticleRepository;
+import fun.liljaksha.blog.exceptions.ArticleNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,7 +24,8 @@ public class ArticleService {
     }
 
     public Article getArticleById(long id) {
-        return articleRepository.findById(id).orElse(null);
+        return articleRepository.findById(id)
+            .orElseThrow(() -> new ArticleNotFoundException(id));
     }
 
     public Page<Article> getArticles(PageRequest of) {

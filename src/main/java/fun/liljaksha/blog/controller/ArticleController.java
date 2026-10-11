@@ -50,9 +50,6 @@ public class ArticleController {
     @GetMapping("/article/{id}")
     public String getArticle(@PathVariable("id") Long id, Authentication auth, Model model) {
         Article article = articleService.getArticleById(id);
-        if (article == null) {
-            return "article/not-found";
-        }
         model.addAttribute("article", article);
         if (auth == null) {
             model.addAttribute("liked", false);
