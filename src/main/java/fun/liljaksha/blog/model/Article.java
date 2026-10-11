@@ -46,10 +46,7 @@ public class Article {
     )
     private Set<Comment> comments;
 
-    @ManyToMany(
-            fetch = FetchType.EAGER,
-            cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}
-    )
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "article_likes",
             joinColumns = @JoinColumn(name = "article_id"),

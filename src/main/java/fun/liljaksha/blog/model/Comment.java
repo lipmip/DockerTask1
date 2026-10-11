@@ -29,7 +29,7 @@ public class Comment {
     @ManyToOne(fetch = FetchType.LAZY)
     private Article article;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     @CreationTimestamp
