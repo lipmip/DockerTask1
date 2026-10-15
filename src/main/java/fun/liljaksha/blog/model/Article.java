@@ -7,10 +7,9 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,7 +36,16 @@ public class Article {
     @NotBlank
     private String content;
 
-    private LocalDate publishedDate;
+    @Column(nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime publishedAt;
+    
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 
     @OneToMany(
             fetch = FetchType.EAGER,
@@ -53,13 +61,6 @@ public class Article {
             inverseJoinColumns = @JoinColumn(name = "user_email")
     )
     private Set<User> likes;
-
-    @CreationTimestamp
-    @Column(updatable = false)
-    private Timestamp createdAt;
-
-    @UpdateTimestamp
-    private Timestamp updatedAt;
 
     public void like(User user) {
         if (likes == null) {

@@ -11,8 +11,8 @@
         <label for="title">Заголовок</label>
         <input type="text" id="title" th:field="*{title}" maxlength="50" required>
 
-        <label for="publishedDate">Дата публикации</label>
-        <input type="date" id="publishedDate" th:field="*{publishedDate}">
+        <label for="publishedAt">Дата и время публикации</label>
+        <input type="datetime-local" id="publishedAt" th:field="*{publishedAt}">
 
         <label for="content">Текст</label>
         <textarea id="content" th:field="*{content}" required></textarea>

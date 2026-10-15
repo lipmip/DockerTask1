@@ -6,7 +6,7 @@
 <main class="wrap">
     <article class="card">
         <h1 th:text="${article.title}" style="margin-top: 0">Заголовок</h1>
-        <div class="muted" th:text="${article.publishedDate != null} ? ${#temporals.format(article.publishedDate, 'dd.MM.yyyy')} : ''">01.01.2026</div>
+        <div class="muted" th:text="${#temporals.format(article.publishedAt, 'dd.MM.yyyy HH:mm')}">01.01.2026</div>
         <div class="content" th:text="${article.content}">Текст статьи</div>
 
         <div class="row" style="margin-top: 16px">
@@ -24,7 +24,7 @@
     <div class="card" th:each="c : ${article.comments}">
         <div class="muted">
             <span th:text="${c.user != null} ? ${c.user.firstName + ' ' + c.user.lastName} : 'Аноним'">Автор</span>
-            <span th:if="${c.createdAt != null}" th:text="'· ' + ${#dates.format(c.createdAt, 'dd.MM.yyyy HH:mm')}"></span>
+            <span th:if="${c.createdAt != null}" th:text="'· ' + ${#temporals.format(c.createdAt, 'dd.MM.yyyy HH:mm')}"></span>
         </div>
         <div class="content" th:text="${c.text}">Текст</div>
     </div>

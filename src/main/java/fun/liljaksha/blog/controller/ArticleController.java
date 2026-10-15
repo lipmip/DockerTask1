@@ -36,7 +36,7 @@ public class ArticleController {
     }
 
     @GetMapping("/home")
-    public String homePage(Model model, @RequestParam(defaultValue = "publishedDate") String sortBy,
+    public String homePage(Model model, @RequestParam(defaultValue = "publishedAt") String sortBy,
                            @RequestParam(defaultValue = "0") int page,
                            @RequestParam(defaultValue = "10") int size) {
         Page<Article> articlePage = articleService.findAllSorted(sortBy, page, size);
@@ -85,7 +85,7 @@ public class ArticleController {
         if (result.hasErrors()) {
             return "article/add-article";
         }
-        articleService.saveArticle(article);
+        articleService.createArticle(article);
         return "redirect:/dashboard";
     }
 
@@ -125,8 +125,11 @@ public class ArticleController {
     }
 
     @PostMapping("/article/update")
-    public String update(@Validated @ModelAttribute Article article, Model model) {
-        articleService.saveArticle(article);
+    public String update(@Validated @ModelAttribute Article article, BindingResult result) {
+        if (result.hasErrors()) {
+            return "article/update";
+        }
+        articleService.editArticle(article.getId(), article);
         return "redirect:/dashboard";
     }
 }

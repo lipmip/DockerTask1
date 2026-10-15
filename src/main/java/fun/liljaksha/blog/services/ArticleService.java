@@ -9,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class ArticleService {
@@ -20,7 +22,7 @@ public class ArticleService {
         if (sortBy.equals("likes")) {
             return articleRepository.findAllSortedByLikes(pageable);
         }
-        return articleRepository.findAllByOrderByPublishedDateDesc(pageable);
+        return articleRepository.findAllSortedByPublishedAt(pageable);
     }
 
     public Article getArticleById(long id) {
@@ -29,10 +31,23 @@ public class ArticleService {
     }
 
     public Page<Article> getArticles(PageRequest of) {
-        return articleRepository.findAllByOrderByPublishedDateDesc(of);
+        return articleRepository.findAllSortedByPublishedAt(of);
     }
 
-    public void saveArticle(Article article) {
+    public void createArticle(Article article) {
+        if (article.getPublishedAt() == null) {
+            article.setPublishedAt(LocalDateTime.now());
+        }
+        articleRepository.save(article);
+    }
+
+    public void editArticle(long id, Article form) {
+        Article article = getArticleById(id);
+        article.setTitle(form.getTitle());
+        article.setContent(form.getContent());
+        if (form.getPublishedAt() != null) {
+            article.setPublishedAt(form.getPublishedAt());
+        }
         articleRepository.save(article);
     }
 

@@ -13,12 +13,12 @@
 
     <table th:unless="${articles.isEmpty()}">
         <thead>
-        <tr><th>Заголовок</th><th>Дата</th><th>♥</th><th></th></tr>
+        <tr><th>Заголовок</th><th>Дата и время</th><th>♥</th><th></th></tr>
         </thead>
         <tbody>
         <tr th:each="a : ${articles}">
             <td><a th:href="@{/article/{id}(id=${a.id})}" th:text="${a.title}">Заголовок</a></td>
-            <td th:text="${a.publishedDate != null} ? ${#temporals.format(a.publishedDate, 'dd.MM.yyyy')} : '—'">01.01.2026</td>
+            <td th:text="${#temporals.format(a.publishedAt, 'dd.MM.yyyy HH:mm')}">01.01.2026</td>
             <td th:text="${a.likes != null} ? ${a.likes.size()} : 0">0</td>
             <td style="text-align: right">
                 <a class="btn btn-light" th:href="@{/article/update(id=${a.id})}">Изменить</a>

@@ -8,7 +8,7 @@
         <h1 style="margin: 0">Статьи</h1>
         <div class="row">
             <span class="muted">Сортировка:</span>
-            <a th:href="@{/home(sortBy='publishedDate')}" th:class="${sortBy != 'likes'} ? 'btn' : 'btn btn-light'">Новые</a>
+            <a th:href="@{/home(sortBy='publishedAt')}" th:class="${sortBy != 'likes'} ? 'btn' : 'btn btn-light'">Новые</a>
             <a th:href="@{/home(sortBy='likes')}" th:class="${sortBy == 'likes'} ? 'btn' : 'btn btn-light'">Популярные</a>
         </div>
     </div>
@@ -18,7 +18,7 @@
     <article class="card" th:each="a : ${articlePage.content}">
         <h2><a th:href="@{/article/{id}(id=${a.id})}" th:text="${a.title}">Заголовок</a></h2>
         <div class="muted">
-            <span th:text="${a.publishedDate != null} ? ${#temporals.format(a.publishedDate, 'dd.MM.yyyy')} : 'без даты'">01.01.2026</span>
+            <span th:text="${#temporals.format(a.publishedAt, 'dd.MM.yyyy HH:mm')}">01.01.2026</span>
             · ♥ <span th:text="${a.likes != null} ? ${a.likes.size()} : 0">0</span>
             · комментариев: <span th:text="${a.comments != null} ? ${a.comments.size()} : 0">0</span>
         </div>

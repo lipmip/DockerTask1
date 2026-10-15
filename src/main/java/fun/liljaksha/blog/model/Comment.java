@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -33,5 +33,6 @@ public class Comment {
     private User user;
 
     @CreationTimestamp
-    private Timestamp createdAt;
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
 }
