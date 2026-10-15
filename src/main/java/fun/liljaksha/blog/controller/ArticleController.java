@@ -1,24 +1,18 @@
 package fun.liljaksha.blog.controller;
 
 import fun.liljaksha.blog.model.*;
-import fun.liljaksha.blog.repository.ArticleRepository;
 import fun.liljaksha.blog.services.ArticleService;
 import fun.liljaksha.blog.services.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
