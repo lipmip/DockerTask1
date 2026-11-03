@@ -11,29 +11,6 @@
 - PostgreSQL 17, миграции Flyway
 - Docker, Docker Compose
 
-## Запуск в Docker
-
-Нужен только [Docker](https://www.docker.com/products/docker-desktop/).
-
-```bash
-docker compose up -d --build
-```
-
-Приложение откроется на http://localhost:8080. При первом запуске Flyway создаст схему базы и заполнит её начальными данными: пользователями, статьёй и комментарием.
-
-Остановить:
-
-```bash
-docker compose down
-```
-
-Данные хранятся в Docker volume `pgdata` и переживают перезапуск. Чтобы удалить их и пересоздать базу с нуля:
-
-```bash
-docker compose down -v
-docker compose up -d --build
-```
-
 ## Аккаунты
 
 | Email              | Пароль  | Роль  | Возможности                                   |
@@ -42,23 +19,6 @@ docker compose up -d --build
 | `user@blog.local`  | `user`  | USER  | лайки и комментарии                           |
 
 Новых пользователей можно зарегистрировать на странице `/signup`, они получают роль `USER`.
-
-## Локальная разработка
-
-Чтобы запускать приложение из IDE или через Gradle, достаточно поднять в Docker только базу:
-
-```bash
-docker compose up -d postgres
-./gradlew bootRun        # Windows: .\gradlew.bat bootRun
-```
-
-Приложение подключается к `localhost:5432` с параметрами из `src/main/resources/application.properties`. Если запущен контейнер `blog-app`, перед `bootRun` его нужно остановить, иначе порт 8080 будет занят:
-
-```bash
-docker compose stop app
-```
-
-Тест `BlogApplicationTests` поднимает весь контекст приложения, поэтому для `./gradlew test` и `./gradlew build` база тоже должна быть запущена.
 
 ## Миграции базы
 
